@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  jmx:
+    enabled: false
+  config:
+    location: classpath:/application.yml
+  main:
+    lazy-initialization: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: root
+    password: root
+  application:
+    name: customer-service
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/testdata
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: false
+    prometheus:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: INFO
